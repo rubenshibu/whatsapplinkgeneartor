@@ -88,8 +88,6 @@ class _MyHomePageState extends State<MyHomePage> {
                 keyboardType: TextInputType.phone,
                 controller: _phone,
               ),
-
-
               SizedBox(height: 12,),
 
               TextField(
@@ -116,20 +114,27 @@ class _MyHomePageState extends State<MyHomePage> {
                   _showDialog(url);
                 },
               ),
-              Wrap(
-                crossAxisAlignment: WrapCrossAlignment.center,
-                children: <Widget>[
-                  Text('team T E R M I N A L ',
-                  style: TextStyle(
-                    fontSize: 10.0,
-                  ),),
-                  Icon(Icons.favorite,size: 15.0,),
-                ],
-              )
+
+              Expanded(
+                child:  Column(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: <Widget>[
+                    Text('team T E R M I N A L ',
+                      style: TextStyle(
+                        fontSize: 10.0,
+                      ),
+                    ),
+                    Icon(Icons.favorite,size: 15.0,
+                    ),
+                  ],
+                ),
+              ),
+
             ],
           ),
         ),
       ),
     );
+
   }
 }
