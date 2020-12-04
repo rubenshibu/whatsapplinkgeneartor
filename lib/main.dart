@@ -1,111 +1,135 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-// import 'package:flutter/services.dart';
-// import 'dart:io';
-
-// import 'package:url_launcher/url_launcher.dart';
+import 'package:share/share.dart';
 
 void main() {
   runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
+  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: Column(
-        children: <Widget>[
-          Expanded(
-            child: Scaffold(
-              appBar: AppBar(
-                backgroundColor: Color(0xff25D366),
-                title: Text('Search whatsapp'),
-              ),
-              body: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget>[
-                  Padding(
-                    padding: const EdgeInsets.all(12.0),
-                    child: TextField(
-                      decoration: InputDecoration(
-                        labelText: 'Enter the number',
-                        hintText: 'Number',
-                        icon: Icon(Icons.phone,size: 36,),
-                        border: OutlineInputBorder(
-                          borderSide: BorderSide(
-                            color: Color(0xff25D366),
-                            width: 5.0,
-                          ),
-                        ),
-                      ),
-                      keyboardType: TextInputType.number,
-                      inputFormatters: <TextInputFormatter>[
-                        FilteringTextInputFormatter.digitsOnly
-                     ],
-                    ),
-                  ),
+      title: 'WhatsApp Link Generator',
+      theme: ThemeData(
+        primarySwatch: Colors.green,
+      ),
+      home: MyHomePage(title: 'Link Generator'),
+      debugShowCheckedModeBanner: false,
+    );
+  }
+}
 
-                  Container(
-                    child: Padding(
-                      padding: const EdgeInsets.all(12.0),
-                      child: TextField(
-                        decoration: InputDecoration(
-                          labelText: 'Enter the message',
-                          hintText: 'message',
-                          icon: Icon(Icons.message, size: 36,),
-                          border: OutlineInputBorder(
-                            borderSide: BorderSide(
-                              color: Color(0xff25D366),
-                              width: 5.0,
-                            ),
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
+class MyHomePage extends StatefulWidget {
+  MyHomePage({Key key, this.title}) : super(key: key);
+  final String title;
+  @override
+  _MyHomePageState createState() => _MyHomePageState();
+}
 
+class _MyHomePageState extends State<MyHomePage> {
+  int _counter = 0;
 
+  void _incrementCounter() {
+    setState(() {
+      _counter++;
+    });
+  }
 
+  TextEditingController _phone = new TextEditingController();
+  TextEditingController _message = new TextEditingController();
 
-                  // Row(
-                  //   mainAxisAlignment: MainAxisAlignment.center,
-                  //   children: <Widget>[
-                  //     Container(
-                  //       child: new Column(
-                  //         children: <Widget>[
-                  //           new RaisedButton(
-                  //             color: Colors.greenAccent,
-                  //             onPressed: () => print('running Row1'),
-                  //             child: new Text("Press here"),
-                  //           )
-                  //         ],
-                  //       ),
-                  //     ),
-                  //   ],
-                  // ),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.end,
-                    children: <Widget>[
-                      RaisedButton(
-                        color:Colors.greenAccent,
-                        onPressed: () => print("rubnning"),
-                        child: new Text('send'),
-                      )
-                    ],
-                  ),
-                ],
-              ),
+  void _showDialog(String url) {
+    // flutter defined function
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        // return object of type Dialog
+        return AlertDialog(
+          title: new Text("WhatsApp Link"),
+          content: new Text(url),
+          actions: <Widget>[
+            new FlatButton(
+              child: new Text("Share"),
+              onPressed: () {
+                Share.share("My WhatsApp: ${url}");
 
-              floatingActionButton: FloatingActionButton(
-                onPressed: null,
-                tooltip: 'Share',
-                child: Icon(Icons.share),
-              ),
-
+                Navigator.of(context).pop();
+              },
             ),
+          ],
+        );
+      },
+    );
+  }
 
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text(widget.title),
+      ),
+      body: Padding(
+        padding: EdgeInsets.all(12),
+        child: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+
+              TextField(
+                decoration: new InputDecoration(
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(12.0)
+                  ),
+                    labelText: 'WhatsApp phone number',
+                    hintText: 'Number',
+                    icon: new Icon(Icons.phone, size: 24,)
+                ),
+                keyboardType: TextInputType.phone,
+                controller: _phone,
+              ),
+
+
+              SizedBox(height: 12,),
+
+              TextField(
+                decoration: new InputDecoration(
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(12.0),
+                  ),
+                    labelText: 'Message',
+                    hintText: 'Message',
+                    icon: new Icon(Icons.message, size: 24,)
+                ),
+                autocorrect: true,
+                keyboardType: TextInputType.text,
+                controller: _message,
+              ),
+              SizedBox(height: 12,),
+              Text("Any Simple message"),
+              SizedBox(height: 12,),
+              RaisedButton(
+                color: Colors.green,
+                child: Text("Link", style: TextStyle(color: Colors.white),),
+                onPressed: (){
+                  String url = "https://wa.me/${_phone.text}?text=${_message.text}";
+                  _showDialog(url);
+                },
+              ),
+              Icon(Icons.favorite),
+              Container(
+                // margin: EdgeInsets.only(top: 100.0),
+                child:
+                Text('team T E R M I N A L',
+                  style: TextStyle(
+                    
+                    fontSize: 10,
+                  ),
+                ),
+    ),
+            ],
           ),
-        ],
+        ),
       ),
     );
   }
