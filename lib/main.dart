@@ -116,17 +116,16 @@ class _MyHomePageState extends State<MyHomePage> {
                   _showDialog(url);
                 },
               ),
-              Icon(Icons.favorite),
-              Container(
-                // margin: EdgeInsets.only(top: 100.0),
-                child:
-                Text('team T E R M I N A L',
+              Wrap(
+                crossAxisAlignment: WrapCrossAlignment.center,
+                children: <Widget>[
+                  Text('team T E R M I N A L ',
                   style: TextStyle(
-                    
-                    fontSize: 10,
-                  ),
-                ),
-    ),
+                    fontSize: 10.0,
+                  ),),
+                  Icon(Icons.favorite,size: 15.0,),
+                ],
+              )
             ],
           ),
         ),
