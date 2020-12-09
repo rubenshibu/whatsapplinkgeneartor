@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:share/share.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 void main() {
   runApp(MyApp());
 }
+
 
 class MyApp extends StatelessWidget {
   // This widget is the root of your application.
@@ -110,8 +112,12 @@ class _MyHomePageState extends State<MyHomePage> {
                 color: Colors.green,
                 child: Text("Link", style: TextStyle(color: Colors.white),),
                 onPressed: (){
-                  String url = "https://wa.me/${_phone.text}?text=${_message.text}";
-                  _showDialog(url);
+
+                  // String url = "https://wa.me/${_phone.text}?text=${_message.text}";
+                  String url = "wa.me/+91${_phone.text}?text=${_message.text}";
+
+                  _launchURL(context, url);
+                  // _showDialog(url);
                 },
               ),
 
@@ -129,12 +135,21 @@ class _MyHomePageState extends State<MyHomePage> {
                   ],
                 ),
               ),
-
             ],
           ),
         ),
       ),
     );
 
+  }
+}
+
+_launchURL(BuildContext context, String url) async {
+  final uri = 'https://$url';
+  if (await canLaunch(uri)) {
+    await launch(uri);
+  } else {
+    // CustomWidgets.buildErrorSnackbar(context, 'Error opening WhatsApp');
+    throw 'Could not launch $uri';
   }
 }
