@@ -1,6 +1,9 @@
+// import 'dart:html';
+
 import 'package:flutter/material.dart';
 import 'package:share/share.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'Components/file.dart';
 
 void main() {
   runApp(MyApp());
@@ -134,7 +137,9 @@ class _MyHomePageState extends State<MyHomePage> {
                   "Add File",
                   style: TextStyle(color: Colors.white),
                 ),
-                onPressed: () => {}),
+                onPressed: () => {
+                 Navigator.push(context, MaterialPageRoute(builder: (context)=>File()))
+                }),
             Expanded(
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.end,

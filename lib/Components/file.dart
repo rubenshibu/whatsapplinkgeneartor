@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 
-main() => runApp(App());
+main() => runApp(File());
 
-class App extends StatefulWidget {
+class File extends StatefulWidget {
   @override
-  _AppState createState() => _AppState();
+  _FileState createState() => _FileState();
 }
 
-class _AppState extends State<App> {
+class _FileState extends State<File> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
