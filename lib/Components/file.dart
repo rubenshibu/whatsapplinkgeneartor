@@ -22,12 +22,35 @@ class _FileState extends State<File> {
   FileType _pickingType;
   TextEditingController _controller = new TextEditingController();
   @override
-  void initState(){
-    _controller.addListener(() => _extention = _controller.text );
+  void initState() {
+    _controller.addListener(() => _extention = _controller.text);
   }
+
   void _openFileExplorer() async {
-    if(_pickingType != FileType.custom || _hasValidMime){
-      
+    if (_pickingType != FileType.custom || _hasValidMime) {
+      setState(() => _loadingPath = true);
+      try {
+        if (_multiPick) {
+          _path = null;
+          _paths = await FilePicker.getMultipleFilePath(
+              type: _pickingType, fileExtention: _extention);
+        } else {
+          _paths = null;
+          _path = await FilePicker.getFilePath(
+              type: _pickingType, fileExtenetion: _extention);
+        }
+      } on PlatformException catch (e) {
+        print("Unsupported" + e.toString());
+      }
+      if (!mounted) return;
+      setState(() {
+        _loadingPath = false;
+        _fileName = _path != null
+            ? _path.split('/').last
+            : _paths != null
+                ? _paths.keys.toString()
+                : '...';
+      });
     }
   }
 
