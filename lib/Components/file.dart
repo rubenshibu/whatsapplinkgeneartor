@@ -2,16 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/services.dart';
 
-main() => runApp(App());
+main() => runApp(File());
 
-class App extends StatefulWidget {
+class File extends StatefulWidget {
   @override
   State<StatefulWidget> createState() {
-    return _App();
+    return _File();
   }
 }
 
-class _App extends State<App> {
+class _File extends State<File> {
   String _fileName;
   String _path;
   Map<String, String> _paths;
