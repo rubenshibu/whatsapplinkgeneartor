@@ -37,6 +37,7 @@ class _MyHomePageState extends State<MyHomePage> {
       _counter++;
     });
   }
+
   TextEditingController _phone = new TextEditingController();
   TextEditingController _message = new TextEditingController();
 
@@ -73,7 +74,9 @@ class _MyHomePageState extends State<MyHomePage> {
         padding: EdgeInsets.all(12),
         child: Column(
           children: <Widget>[
-            SizedBox(height: 100.0,),
+            SizedBox(
+              height: 100.0,
+            ),
             TextField(
               decoration: new InputDecoration(
                   border: OutlineInputBorder(
@@ -125,6 +128,13 @@ class _MyHomePageState extends State<MyHomePage> {
                 // _showDialog(url);
               },
             ),
+            RaisedButton(
+                color: Colors.teal,
+                child: Text(
+                  "Add File",
+                  style: TextStyle(color: Colors.white),
+                ),
+                onPressed: () => {}),
             Expanded(
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.end,
