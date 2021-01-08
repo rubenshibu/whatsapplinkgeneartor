@@ -22,6 +22,9 @@ environment:
 
 dependencies:
   url_launcher: ^5.7.10
+  faker: ^1.3.0
+  csv: ^4.1.0
+  csv_sheet: ^0.0.3
   flutter:
     sdk: flutter
 
